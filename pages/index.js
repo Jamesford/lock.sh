@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Head from '../components/head'
+import Layout from '../components/Layout'
 import CryptoJS from 'crypto-js'
 import api from '../utils/api'
 
@@ -14,8 +14,8 @@ export default class Index extends Component {
     }
   }
 
-  onToggle = (evt) => {
-    this.setState({ open: evt.target.checked })
+  onClear = () => {
+    this.setState({ res: {} })
   }
 
   onInput = (evt) => {
@@ -36,22 +36,19 @@ export default class Index extends Component {
     const { text, pass, res } = this.state
 
     return (
-      <div className='wrapper'>
-        <Head />
-
-        <h1 className='title is-2'>Stash Cafe</h1>
-
+      <Layout>
         <main>
           { res.ok &&
-            <div className='notification is-primary'>
-              {/* <button className='delete'></button> */}
-              <span><a href='#'>https://stash.cafe/{res.id}</a></span>
+            <div className='notification is-info'>
+              <button className='delete' onClick={this.onClear}></button>
+              <p><strong>Secret stash created</strong></p>
+              <p><a href={`/${res.id}`}>https://stash.cafe/{res.id}</a></p>
             </div>
           }
 
           { res.ok === false &&
             <div className='notification is-danger'>
-              {/* <button className='delete'></button> */}
+              <button className='delete' onClick={this.onClear}></button>
               <span>Unable to stash your stuff</span>
             </div>
           }
@@ -60,7 +57,7 @@ export default class Index extends Component {
             <label className='label'>Data to Stash</label>
 
             <div className='control'>
-              <textarea className='textarea' name='text' value={text} onChange={this.onInput} />
+              <textarea className='textarea' name='text' rows='10' value={text} onChange={this.onInput} />
             </div>
           </div>
 
@@ -76,19 +73,23 @@ export default class Index extends Component {
 
             <div className='level-right'>
               <div className='control'>
-                <button className='button is-primary' onClick={this.onSave}>Save</button>
+                <button className='button is-info' onClick={this.onSave} disabled={!text || !pass}>Encrypt & Save</button>
               </div>
             </div>
+          </div>
+
+          <div className='info'>
+            Stash automatically expires after 24 hours
           </div>
         </main>
 
         <style jsx>{`
-          .wrapper {
-            margin: 75px auto;
-            width: 400px;
+          .info {
+            margin-top: 50px;
+            text-align: center;
           }
         `}</style>
-      </div>
+      </Layout>
     )
   }
 }

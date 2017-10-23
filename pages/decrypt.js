@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Head from '../components/head'
+import Layout from '../components/Layout'
 import CryptoJS from 'crypto-js'
 import debounce from 'lodash/debounce'
 
@@ -50,17 +50,13 @@ export default class Decrypt extends Component {
     const { text, pass, wait } = this.state
 
     return (
-      <div className='wrapper'>
-        <Head />
-
-        <h1 className='title is-2'>Stash Cafe</h1>
-
+      <Layout>
         <main>
           <div className='field'>
             <label className='label'>Stashed Data</label>
 
             <div className='control'>
-              <textarea className='textarea' name='text' value={text} readOnly />
+              <textarea className='textarea' name='text' rows='10' value={text} readOnly />
             </div>
           </div>
 
@@ -70,15 +66,19 @@ export default class Decrypt extends Component {
               <input className='input' type='password' name='pass' value={pass} onChange={this.onPassword} />
             </div>
           </div>
+
+          <div className='info'>
+            <a href='/'>Create new Stash</a>
+          </div>
         </main>
 
         <style jsx>{`
-          .wrapper {
-            margin: 75px auto;
-            width: 400px;
+          .info {
+            margin-top: 50px;
+            text-align: center;
           }
         `}</style>
-      </div>
+      </Layout>
     )
   }
 }

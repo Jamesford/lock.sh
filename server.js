@@ -44,7 +44,7 @@ app.prepare()
     }
   })
 
-  router.get('/help', async ctx => {
+  router.get('/about', async ctx => {
     await handle(ctx.req, ctx.res)
     ctx.respond = false
   })
