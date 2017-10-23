@@ -10,7 +10,8 @@ export default class Index extends Component {
     this.state = {
       text: '',
       pass: '',
-      res: {}
+      res: {},
+      loading: false
     }
   }
 
@@ -26,14 +27,16 @@ export default class Index extends Component {
   onSave = async () => {
     const { text, pass } = this.state
 
+    this.setState({ loading: true })
+
     const cipher = CryptoJS.AES.encrypt(text, pass).toString()
 
     const res = await api.create(cipher)
-    this.setState({ res: res, text: '', pass: '' })
+    this.setState({ res: res, text: '', pass: '', loading: false })
   }
 
   render () {
-    const { text, pass, res } = this.state
+    const { text, pass, res, loading } = this.state
 
     return (
       <Layout>
@@ -68,14 +71,8 @@ export default class Index extends Component {
             </div>
           </div>
 
-          <div className='field level'>
-            <div className='level-left' />
-
-            <div className='level-right'>
-              <div className='control'>
-                <button className='button is-info' onClick={this.onSave} disabled={!text || !pass}>Encrypt & Save</button>
-              </div>
-            </div>
+          <div className='field' style={{ display: 'flex' }}>
+            <button className={`button is-info ${loading ? 'is-loading' : ''}`} style={{ flexGrow: '1' }} onClick={this.onSave} disabled={!text || !pass}>Encrypt & Save</button>
           </div>
 
           <div className='info'>
