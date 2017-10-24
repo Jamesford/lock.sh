@@ -14,7 +14,7 @@ const db = new Database()
 app.prepare()
 .then(() => {
   server.use(koaBody({
-    jsonLimit: '1mb'
+    jsonLimit: '500kb'
   }))
 
   server.use(async (ctx, next) => {
