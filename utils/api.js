@@ -16,6 +16,15 @@ export const create = async (data) => {
   return response.json()
 }
 
+export const read = async (id) => {
+  const response = await fetch(`/api/read/${id}`, {
+    headers: headers(),
+    method: 'get'
+  })
+  return response.json()
+}
+
 export default {
-  create
+  create,
+  read
 }

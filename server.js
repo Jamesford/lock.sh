@@ -37,14 +37,13 @@ app.prepare()
     }
   })
 
-  //  Not required, data is retrieved during the '/:id' route
-  //
-  // router.get('/api/read/:id', async ctx => {
-  //   ctx.body = {
-  //     ok: true,
-  //     data: db.read(ctx.params.id)
-  //   }
-  // })
+  router.get('/api/read/:id', async ctx => {
+    const data = await db.read(ctx.params.id)
+    ctx.body = {
+      ok: !!data,
+      data: data
+    }
+  })
 
   router.get('/about', async ctx => {
     await handle(ctx.req, ctx.res)
