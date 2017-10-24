@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Layout from '../components/Layout'
 import CryptoJS from 'crypto-js'
 import debounce from 'lodash/debounce'
-
+import ClipboardButton from 'react-clipboard.js'
 
 export default class Decrypt extends Component {
   static getInitialProps ({ query: { id, enc, p } }) {
@@ -15,7 +15,8 @@ export default class Decrypt extends Component {
     this.state = {
       text: props.enc,
       pass: props.p || '',
-      wait: !!props.p
+      wait: !!props.p,
+      copy: false
     }
   }
 
@@ -46,8 +47,32 @@ export default class Decrypt extends Component {
     this.attemptDecrypt()
   }
 
+  getText = () => this.state.text
+
+  onCopy = () => {
+    this.setState({ copy: true })
+    setTimeout(() => this.setState({ copy: false}), 500)
+  }
+
   render () {
-    const { text, pass, wait } = this.state
+    const { text, pass, wait, copy } = this.state
+
+    let copyStyle = {
+      width: '60px',
+      marginTop: '-1px',
+      borderTopLeftRadius: 0,
+      borderTopRightRadius: 0
+    }
+
+    const successStyle = {
+      borderColor: '#3273dc'
+    }
+
+    if (copy) {
+      copyStyle = Object.assign(copyStyle, successStyle, {
+        color: '#3273dc'
+      })
+    }
 
     return (
       <Layout>
@@ -56,12 +81,17 @@ export default class Decrypt extends Component {
             <label className='label'>Locked Data</label>
 
             <div className='control'>
-              <textarea className='textarea' name='text' rows='10' value={text} readOnly />
+              <textarea className='textarea' style={copy ? successStyle : {}} name='text' rows='10' value={text} readOnly />
+
+              <ClipboardButton className='button is-small pull-right' style={copyStyle} option-text={this.getText} onSuccess={this.onCopy}>
+                <span>{copy ? 'Copied' : 'Copy'}</span>
+              </ClipboardButton>
             </div>
           </div>
 
           <div className='field'>
             <label className='label'>Decryption Password</label>
+
             <div className={`control ${wait ? 'is-loading' : ''}`}>
               <input className='input' type='password' name='pass' value={pass} onChange={this.onPassword} />
             </div>
@@ -76,6 +106,15 @@ export default class Decrypt extends Component {
           .info {
             margin-top: 50px;
             text-align: center;
+          }
+          .textarea {
+            border-bottom-right-radius: 0;
+          }
+          .textarea:hover {
+            z-index: 1;
+          }
+          .button:hover {
+            z-index: 1;
           }
         `}</style>
       </Layout>
