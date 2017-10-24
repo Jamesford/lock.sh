@@ -13,7 +13,7 @@ export default ({ children, title = 'lock.sh' }) => (
 
     <footer style={{ paddingTop: '50px' }}>
       <div style={{ textAlign: 'center', marginBottom: '10px' }}>
-        <code><i className='fa fa-btc' /> 1P7yFQAC3EiqpdB7K9s6bKPvXEP1LPoQnY</code>
+        <code><i className='fa fa-btc' /> 1J2DyUMebM7fzDkRybNAP6paYhGtmX64kS</code>
       </div>
     </footer>
 
