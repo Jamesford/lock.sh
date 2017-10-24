@@ -44,20 +44,20 @@ export default class Index extends Component {
           { res.ok &&
             <div className='notification is-info'>
               <button className='delete' onClick={this.onClear}></button>
-              <p><strong>Secret stash created</strong></p>
-              <p><a href={`/${res.id}`}>https://stash.cafe/{res.id}</a></p>
+              <p><strong>Secure lock created</strong></p>
+              <p><a href={`/${res.id}`}>https://lock.sh/{res.id}</a></p>
             </div>
           }
 
           { res.ok === false &&
             <div className='notification is-danger'>
               <button className='delete' onClick={this.onClear}></button>
-              <span>Unable to stash your stuff</span>
+              <span>Unable to save your lock</span>
             </div>
           }
 
           <div className='field'>
-            <label className='label'>Data to Stash</label>
+            <label className='label'>Data to Lock</label>
 
             <div className='control'>
               <textarea className='textarea' name='text' rows='10' value={text} onChange={this.onInput} />
@@ -76,7 +76,7 @@ export default class Index extends Component {
           </div>
 
           <div className='info'>
-            Stash automatically expires after 24 hours
+            Locks automatically expire after 24 hours
           </div>
         </main>
 

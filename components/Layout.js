@@ -1,7 +1,7 @@
 import React from 'react'
 import Head from './head'
 
-export default ({ children, title = 'Stash Cafe' }) => (
+export default ({ children, title = 'lock.sh' }) => (
   <div className='wrapper'>
     <Head title={title} />
 

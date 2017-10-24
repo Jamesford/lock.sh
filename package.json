@@ -1,7 +1,7 @@
 {
-  "name": "stash.cafe",
+  "name": "lock.sh",
   "version": "1.0.0",
-  "description": "Stash encrypted stuff",
+  "description": "Encrypted temporary text storage",
   "scripts": {
     "dev": "node server.js",
     "build": "next build",

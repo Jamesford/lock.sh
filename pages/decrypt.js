@@ -53,7 +53,7 @@ export default class Decrypt extends Component {
       <Layout>
         <main>
           <div className='field'>
-            <label className='label'>Stashed Data</label>
+            <label className='label'>Locked Data</label>
 
             <div className='control'>
               <textarea className='textarea' name='text' rows='10' value={text} readOnly />
@@ -68,7 +68,7 @@ export default class Decrypt extends Component {
           </div>
 
           <div className='info'>
-            <a href='/'>Create new Stash</a>
+            <a href='/'>Create new Lock</a>
           </div>
         </main>
 
