@@ -30,15 +30,15 @@ app.prepare()
   })
 
   router.post('/api/create', async ctx => {
-    const id = db.create(ctx.request.body.data)
+    const id = await db.create(ctx.request.body.data)
     ctx.body = {
       ok: true,
       id: id
     }
   })
 
-  /* Not required, data is retrieved during the '/:id' route */
-
+  //  Not required, data is retrieved during the '/:id' route
+  //
   // router.get('/api/read/:id', async ctx => {
   //   ctx.body = {
   //     ok: true,
@@ -52,7 +52,7 @@ app.prepare()
   })
 
   router.get('/:id', async ctx => {
-    const enc = db.read(ctx.params.id)
+    const enc = await db.read(ctx.params.id)
     if (!enc) ctx.redirect('/')
     await app.render(ctx.req, ctx.res, '/decrypt', Object.assign(ctx.params, ctx.query, { enc: enc }))
     ctx.respond = false

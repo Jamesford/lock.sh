@@ -1,5 +1,6 @@
 .next/
 .DS_Store
+dump.rdb
 
 # ---> Node
 # Logs
