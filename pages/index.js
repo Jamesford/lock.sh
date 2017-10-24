@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
+import Link from 'next/link'
 import Layout from '../components/Layout'
 import CryptoJS from 'crypto-js'
 import api from '../utils/api'
+import ClipboardButton from 'react-clipboard.js'
 
 export default class Index extends Component {
   constructor (props) {
@@ -11,7 +13,8 @@ export default class Index extends Component {
       text: '',
       pass: '',
       res: {},
-      loading: false
+      loading: false,
+      copy: false
     }
   }
 
@@ -35,17 +38,46 @@ export default class Index extends Component {
     this.setState({ res: res, text: '', pass: '', loading: false })
   }
 
+  getText = () => `https://lock.sh/${this.state.res.id}`
+
+  onCopy = () => {
+    this.setState({ copy: true })
+    setTimeout(() => this.setState({ copy: false}), 500)
+  }
+
   render () {
-    const { text, pass, res, loading } = this.state
+    const { text, pass, res, loading, copy } = this.state
+
+    let copyStyle = {
+      width: '60px',
+      position: 'absolute',
+      top: '4px',
+      right: '5px'
+    }
+
+    if (copy) {
+      copyStyle = Object.assign(copyStyle, {
+        borderColor: '#3273dc',
+        color: '#3273dc'
+      })
+    }
 
     return (
       <Layout>
         <main>
           { res.ok &&
-            <div className='notification is-info'>
+            <div className='notification is-link'>
               <button className='delete' onClick={this.onClear}></button>
+
               <p><strong>Secure lock created</strong></p>
-              <p><a href={`/${res.id}`}>https://lock.sh/{res.id}</a></p>
+
+              <div className='control'>
+                <input className='input' value={`https://lock.sh/${res.id}`} readOnly />
+
+                <ClipboardButton className='button is-small' style={copyStyle} option-text={this.getText} onSuccess={this.onCopy}>
+                  <span>{copy ? 'Copied' : 'Copy'}</span>
+                </ClipboardButton>
+              </div>
             </div>
           }
 
@@ -72,7 +104,7 @@ export default class Index extends Component {
           </div>
 
           <div className='field' style={{ display: 'flex' }}>
-            <button className={`button is-info ${loading ? 'is-loading' : ''}`} style={{ flexGrow: '1' }} onClick={this.onSave} disabled={!text || !pass}>Encrypt & Save</button>
+            <button className={`button is-link ${loading ? 'is-loading' : ''}`} style={{ flexGrow: '1' }} onClick={this.onSave} disabled={!text || !pass}>Encrypt & Save</button>
           </div>
 
           <div className='info'>

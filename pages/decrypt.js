@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Link from 'next/link'
 import Layout from '../components/Layout'
 import CryptoJS from 'crypto-js'
 import debounce from 'lodash/debounce'
@@ -98,7 +99,9 @@ export default class Decrypt extends Component {
           </div>
 
           <div className='info'>
-            <a href='/'>Create new Lock</a>
+            <Link prefetch href='/'>
+              <a>Create new Lock</a>
+            </Link>
           </div>
         </main>
 
