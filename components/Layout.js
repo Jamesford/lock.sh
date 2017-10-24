@@ -1,5 +1,5 @@
 import React from 'react'
-import Head from './head'
+import Head from './Head'
 
 export default ({ children, title = 'lock.sh' }) => (
   <div className='wrapper'>
