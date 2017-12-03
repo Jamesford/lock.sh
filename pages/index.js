@@ -108,7 +108,7 @@ export default class Index extends Component {
           </div>
 
           <div className='info'>
-            Locks automatically expire after 24 hours
+            Locks expire after 24 hours
           </div>
         </main>
 
