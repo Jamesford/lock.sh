@@ -11,11 +11,11 @@ export default ({ children, title = 'lock.sh' }) => (
       { children }
     </div>
 
-    <footer style={{ paddingTop: '50px' }}>
+    {/*<footer style={{ paddingTop: '50px' }}>
       <div style={{ textAlign: 'center', marginBottom: '10px' }}>
         <code><i className='fa fa-btc' /> 1J2DyUMebM7fzDkRybNAP6paYhGtmX64kS</code>
       </div>
-    </footer>
+    </footer>*/}
 
     <style jsx>{`
       .wrapper {
