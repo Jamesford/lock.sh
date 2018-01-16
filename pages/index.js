@@ -4,6 +4,7 @@ import Layout from '../components/Layout'
 import CryptoJS from 'crypto-js'
 import api from '../utils/api'
 import ClipboardButton from 'react-clipboard.js'
+import Storage from '../utils/storage'
 
 export default class Index extends Component {
   constructor (props) {
@@ -35,10 +36,14 @@ export default class Index extends Component {
     const cipher = CryptoJS.AES.encrypt(text, pass).toString()
 
     const res = await api.create(cipher)
-    this.setState({ res: res, text: '', pass: '', loading: false })
+    this.setState({ res: res, text: '', pass: '', loading: false }, () => {
+      Storage.put(res.id)
+    })
   }
 
   getText = () => `https://lock.sh/${this.state.res.id}`
+
+  hoursRemain = (time) => ((time - Date.now()) / (1000 * 60 * 60)).toFixed(0)
 
   onCopy = () => {
     this.setState({ copy: true })
@@ -47,6 +52,11 @@ export default class Index extends Component {
 
   render () {
     const { text, pass, res, loading, copy } = this.state
+
+    let known_locks
+    if (process.browser) {
+      known_locks = Storage.list()
+    }
 
     let copyStyle = {
       width: '60px',
@@ -110,12 +120,47 @@ export default class Index extends Component {
           <div className='info'>
             Locks expire after 24 hours
           </div>
+
+          { known_locks &&
+            <div className='list'>
+              <label className='label'>Known Locks</label>
+
+              <ul>
+                { Object.keys(known_locks).map(key => {
+                  const time = known_locks[key]
+
+                  return (
+                    <li className='list-item'>
+                      <span>
+                        <a href={`https://lock.sh/${key}`}>{ key }</a>
+                      </span>
+
+                      <span className='time'>~{ this.hoursRemain(time) }h</span>
+                    </li>
+                  )
+                }) }
+              </ul>
+            </div>
+          }
         </main>
 
         <style jsx>{`
           .info {
             margin-top: 50px;
             text-align: center;
+          }
+          .list {
+            margin-top: 50px;
+          }
+          .list-item {
+            padding: 5px 70px;
+            border-bottom: 1px solid #dbdbdb;
+          }
+          .list-item:last-child {
+            border-bottom: none;
+          }
+          .time {
+            float: right;
           }
         `}</style>
       </Layout>
