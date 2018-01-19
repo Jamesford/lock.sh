@@ -1,0 +1,7 @@
+version: '2'
+services:
+  redis:
+    image: 'library/redis'
+    container_name: locksh_redis
+    ports:
+      - '6379:6379'
