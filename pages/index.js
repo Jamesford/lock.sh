@@ -36,9 +36,8 @@ export default class Index extends Component {
     const cipher = CryptoJS.AES.encrypt(text, pass).toString()
 
     const res = await api.create(cipher)
-    this.setState({ res: res, text: '', pass: '', loading: false }, () => {
-      Storage.put(res.id)
-    })
+    if (res && res.id) Storage.put(res.id)
+    this.setState({ res: res, text: '', pass: '', loading: false })
   }
 
   getText = () => `https://lock.sh/${this.state.res.id}`
