@@ -53,9 +53,10 @@ export default class Index extends Component {
   render () {
     const { text, pass, res, loading, copy } = this.state
 
-    let known_locks
+    let known_locks, known_locks_keys
     if (process.browser) {
       known_locks = Storage.list()
+      known_locks_keys = Object.keys(known_locks)
     }
 
     let copyStyle = {
@@ -121,12 +122,12 @@ export default class Index extends Component {
             Locks expire after 24 hours
           </div>
 
-          { known_locks &&
+          { known_locks && known_locks_keys.length > 0 &&
             <div className='list'>
               <label className='label'>Known Locks</label>
 
               <ul>
-                { Object.keys(known_locks).map(key => {
+                { known_locks_keys.map(key => {
                   const time = known_locks[key]
 
                   return (
