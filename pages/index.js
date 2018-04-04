@@ -5,6 +5,8 @@ import CryptoJS from 'crypto-js'
 import api from '../utils/api'
 import ClipboardButton from 'react-clipboard.js'
 import Storage from '../utils/storage'
+import ExpirySelect from '../components/fields/Expiry'
+import { DefaultTime } from '../utils/times'
 
 export default class Index extends Component {
   constructor (props) {
@@ -13,6 +15,7 @@ export default class Index extends Component {
     this.state = {
       text: '',
       pass: '',
+      expiry: DefaultTime,
       res: {},
       loading: false,
       copy: false
@@ -29,15 +32,15 @@ export default class Index extends Component {
   }
 
   onSave = async () => {
-    const { text, pass } = this.state
+    const { text, pass, expiry } = this.state
 
     this.setState({ loading: true })
 
     const cipher = CryptoJS.AES.encrypt(text, pass).toString()
 
-    const res = await api.create(cipher)
-    if (res && res.id) Storage.put(res.id)
-    this.setState({ res: res, text: '', pass: '', loading: false })
+    const res = await api.create(cipher, expiry)
+    if (res && res.id) Storage.put(res.id, expiry)
+    this.setState({ res: res, text: '', pass: '', expiry: DefaultTime, loading: false })
   }
 
   getText = () => `https://lock.sh/${this.state.res.id}`
@@ -50,7 +53,7 @@ export default class Index extends Component {
   }
 
   render () {
-    const { text, pass, res, loading, copy } = this.state
+    const { text, pass, expiry, res, loading, copy } = this.state
 
     let known_locks, known_locks_keys
     if (process.browser) {
@@ -113,13 +116,15 @@ export default class Index extends Component {
             </div>
           </div>
 
+          <ExpirySelect name='expiry' expiry={expiry} onChange={this.onInput} />
+
           <div className='field' style={{ display: 'flex' }}>
             <button className={`button is-link ${loading ? 'is-loading' : ''}`} style={{ flexGrow: '1' }} onClick={this.onSave} disabled={!text || !pass}>Encrypt & Save</button>
           </div>
 
-          <div className='info'>
+          {/*<div className='info'>
             Locks expire after 24 hours
-          </div>
+          </div>*/}
 
           { known_locks && known_locks_keys.length > 0 &&
             <div className='list'>
@@ -130,7 +135,7 @@ export default class Index extends Component {
                   const time = known_locks[key]
 
                   return (
-                    <li className='list-item'>
+                    <li className='list-item' key={key}>
                       <span>
                         <a href={`https://lock.sh/${key}`}>{ key }</a>
                       </span>

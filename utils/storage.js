@@ -1,7 +1,6 @@
 // Keeps track of previous lock id's created by this browser
 
 const db = 'lock_cache'
-const h24 = 86400000
 
 class Storage {
   constructor (props) {
@@ -40,8 +39,8 @@ class Storage {
     return true
   }
 
-  put = (id) => {
-    this.store[id] = Date.now() + h24
+  put = (id, expiry) => {
+    this.store[id] = Date.now() + (parseInt(expiry, 10) * 1000)
     return this.save()
   }
 

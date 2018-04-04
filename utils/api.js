@@ -7,11 +7,11 @@ const headers = () => {
   }
 }
 
-export const create = async (data) => {
+export const create = async (data, expiry) => {
   const response = await fetch('/api/create', {
     headers: headers(),
     method: 'post',
-    body: JSON.stringify({ data })
+    body: JSON.stringify({ data, expiry })
   })
   return response.json()
 }

@@ -1,6 +1,5 @@
 import React from 'react'
 import Head from 'next/head'
-import '../utils/cli'
 
 export default ({ title }) => (
   <Head>
@@ -15,7 +14,8 @@ export default ({ title }) => (
         background: #fafafa;
       }
       .site-title {
-        margin-bottom: 30px;
+        display: block;
+        margin: 0 auto 30px;
         width: 320px;
       }
     `}</style>

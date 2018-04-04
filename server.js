@@ -30,7 +30,8 @@ app.prepare()
   })
 
   router.post('/api/create', async ctx => {
-    const id = await db.create(ctx.request.body.data)
+    const { data, expiry } = ctx.request.body
+    const id = await db.create(data, expiry)
     ctx.body = {
       ok: true,
       id: id
