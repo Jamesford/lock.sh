@@ -17,11 +17,11 @@ module.exports = class DB {
 		})
 	}
 
-	create (data) {
+	create (data, expiry) {
 		return new Promise((resolve, reject) => {
+			const expireAfter = parseInt(expiry, 10)
 			const id = sid.generate()
-			// 86400 seconds === 24 hours
-			client.set(id, data, 'EX', 86400, (err) => {
+			client.set(id, data, 'EX', expireAfter, (err) => {
 				if (err) return reject(err)
 				else return resolve(id)
 			})
