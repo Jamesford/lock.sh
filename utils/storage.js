@@ -1,12 +1,25 @@
 // Keeps track of previous lock id's created by this browser
+import EventEmitter from 'events'
 
 const db = 'lock_cache'
 
-class Storage {
+class Storage extends EventEmitter {
   constructor (props) {
+    super(props)
+
     if (!process.browser) return {}
     this.store = {}
     this.load()
+  }
+
+  setStore = (store) => {
+    this.store = store
+    this.emit('data', store)
+  }
+
+  clear = () => {
+    localStorage.removeItem(db)
+    this.setStore({})
   }
 
   clean = (store) => {
@@ -29,7 +42,8 @@ class Storage {
       parsedHistory = parsedHistory || {}
     }
     
-    this.store = this.clean(parsedHistory)
+    const cleanedHistory = this.clean(parsedHistory)
+    this.setStore(cleanedHistory)
     return this.store
   }
 
@@ -40,7 +54,10 @@ class Storage {
   }
 
   put = (id, expiry) => {
-    this.store[id] = Date.now() + (parseInt(expiry, 10) * 1000)
+    this.setStore({
+      ...this.store,
+      [id]: Date.now() + (parseInt(expiry, 10) * 1000)
+    })
     return this.save()
   }
 
@@ -50,4 +67,3 @@ class Storage {
 }
 
 export default new Storage()
-
