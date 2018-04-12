@@ -1,7 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 
-export default ({ title }) => (
+export default ({ title, withZxcvbn }) => (
   <Head>
     <title>{title}</title>
     <meta charSet='utf-8' />
@@ -9,6 +9,9 @@ export default ({ title }) => (
     {/* <link href='/static/favicon.ico' type='image/x-icon' rel='icon' /> */}
     <link href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.0/css/bulma.min.css' rel='stylesheet'  />
     <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet' />
+
+    { withZxcvbn && <script async type='text/javascript' src='/static/zxcvbn.js'></script> }
+
     <style>{`
       html {
         background: #fafafa;

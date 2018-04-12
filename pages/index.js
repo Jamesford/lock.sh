@@ -6,6 +6,7 @@ import api from '../utils/api'
 import ClipboardButton from 'react-clipboard.js'
 import Storage from '../utils/storage'
 import ExpirySelect from '../components/fields/Expiry'
+import Password from '../components/fields/Password'
 import { DefaultTime } from '../utils/times'
 import NoSSR from 'react-no-ssr'
 import KnownLocks from '../components/KnownLocks'
@@ -70,7 +71,7 @@ export default class Index extends Component {
     }
 
     return (
-      <Layout>
+      <Layout withZxcvbn>
         <main>
           { res.ok &&
             <div className='notification is-link'>
@@ -103,12 +104,7 @@ export default class Index extends Component {
             </div>
           </div>
 
-          <div className='field'>
-            <label className='label'>Encryption Password</label>
-            <div className='control'>
-              <input className='input' type='password' name='pass' value={pass} onChange={this.onInput} />
-            </div>
-          </div>
+          <Password name='pass' pass={pass} onChange={this.onInput} />
 
           <ExpirySelect name='expiry' expiry={expiry} onChange={this.onInput} />
 

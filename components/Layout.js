@@ -1,9 +1,9 @@
 import React from 'react'
 import Head from './Head'
 
-export default ({ children, title = 'lock.sh' }) => (
+export default ({ children, title = 'lock.sh', withZxcvbn }) => (
   <div className='wrapper'>
-    <Head title={title} />
+    <Head title={title} withZxcvbn={withZxcvbn} />
 
     <div className='page'>
       <img className='site-title' src='/static/logo.svg' />
