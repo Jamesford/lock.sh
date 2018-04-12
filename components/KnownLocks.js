@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import Storage from '../utils/storage'
 import moment from 'moment'
 
-const hoursRemain = (time) => ((time - Date.now()) / (1000 * 60 * 60)).toFixed(0)
-
 export default class KnownLocks extends Component {
   state = {
     locks: {}
