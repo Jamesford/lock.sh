@@ -15,7 +15,7 @@ export default class KnownLocks extends Component {
   }
 
   componentWillUnmount () {
-    Storage.removeEventListener('data', this.onStorage)
+    Storage.removeListener('data', this.onStorage)
   }
 
   onStorage = (data) => {
