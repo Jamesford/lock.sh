@@ -1014,9 +1014,10 @@ builtins@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/builtins/-/builtins-1.0.3.tgz#cb94faeb61c8696451db36534e1422f94f0aee88"
 
-bulma@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/bulma/-/bulma-0.6.0.tgz#4f5c5de582810d11aa0cfb1f30aec8a792d0d92c"
+bulma@^0.7.5:
+  version "0.7.5"
+  resolved "https://registry.yarnpkg.com/bulma/-/bulma-0.7.5.tgz#35066c37f82c088b68f94450be758fc00a967208"
+  integrity sha512-cX98TIn0I6sKba/DhW0FBjtaDpxTelU166pf7ICXpCCuplHWyu6C9LYZmL5PEsnePIeJaiorsTEzzNk3Tsm1hw==
 
 bytes@3.0.0:
   version "3.0.0"
@@ -4079,6 +4080,11 @@ shortid@^2.2.8:
 signal-exit@^3.0.0:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
+
+sillyid@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/sillyid/-/sillyid-0.2.2.tgz#877cfb4631006cf8b9a7c19db3b8161d21940245"
+  integrity sha512-KRvVgr4MG4p1C5xYpkqamg4aKgDYpMM0R5Hc6W6aZPe2TkZ3a8y5vLjWxZldhMcYov+RAGCmMVYidG4hEEPksg==
 
 slash@^1.0.0:
   version "1.0.0"
