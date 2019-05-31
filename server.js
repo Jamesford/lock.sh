@@ -11,11 +11,12 @@ const handle = app.getRequestHandler()
 const server = new Koa()
 const db = new Database()
 
-app.prepare()
-.then(() => {
-  server.use(koaBody({
-    jsonLimit: '500kb'
-  }))
+app.prepare().then(() => {
+  server.use(
+    koaBody({
+      jsonLimit: '500kb'
+    })
+  )
 
   server.use(async (ctx, next) => {
     const start = new Date()
@@ -30,8 +31,8 @@ app.prepare()
   })
 
   router.post('/api/create', async ctx => {
-    const { data, expiry } = ctx.request.body
-    const id = await db.create(data, expiry)
+    const { data, expiry, friendly } = ctx.request.body
+    const id = await db.create(data, expiry, friendly)
     ctx.body = {
       ok: true,
       id: id
@@ -54,7 +55,12 @@ app.prepare()
   router.get('/:id', async ctx => {
     const enc = await db.read(ctx.params.id)
     if (!enc) ctx.redirect('/')
-    await app.render(ctx.req, ctx.res, '/decrypt', Object.assign(ctx.params, ctx.query, { enc: enc }))
+    await app.render(
+      ctx.req,
+      ctx.res,
+      '/decrypt',
+      Object.assign(ctx.params, ctx.query, { enc: enc })
+    )
     ctx.respond = false
   })
 
