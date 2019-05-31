@@ -7,67 +7,78 @@ export default class KnownLocks extends Component {
     locks: {}
   }
 
-  componentDidMount () {
+  componentDidMount() {
     Storage.on('data', this.onStorage)
     this.setState(Storage.load())
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     Storage.removeListener('data', this.onStorage)
   }
 
-  onStorage = (data) => {
+  onStorage = data => {
     this.setState({ locks: data })
   }
 
-  render () {
+  render() {
     const { locks } = this.state
     const keys = Object.keys(locks)
 
     return (
       <div>
-        { locks && keys.length > 0 &&
-          <div className='list'>
-            <span className='clear'>
-              <a className='button is-text is-small' onClick={() => Storage.clear()}>clear</a>
+        {locks && keys.length > 0 && (
+          <div className="knownlocks">
+            <span className="clear">
+              <a
+                className="button is-text is-small"
+                onClick={() => Storage.clear()}
+              >
+                clear
+              </a>
             </span>
 
-            <label className='label'>Known Locks</label>
+            <label className="label">Known Locks</label>
 
             <ul>
-              { keys.map(key => {
+              {keys.map(key => {
                 const time = locks[key]
 
                 return (
-                  <li className='list-item' key={key}>
-                    <span className='key'>
+                  <li className="item" key={key}>
+                    <span className="key">
                       <a href={`/${key}`}>{key}</a>
                     </span>
 
-                    <span className='time'>expires {moment(time).fromNow()}</span>
+                    <span className="time">
+                      expires {moment(time).fromNow()}
+                    </span>
                   </li>
                 )
-              }) }
+              })}
             </ul>
           </div>
-        }
+        )}
 
         <style jsx>{`
-          .list {
+          .knownlocks {
             margin-top: 50px;
           }
           .clear {
             float: right;
           }
-          .list-item {
-            padding: 5px 50px;
+          .item {
+            padding: 5px 0px;
             border-bottom: 1px solid #dbdbdb;
           }
-          .list-item:last-child {
+          .item:last-child {
             border-bottom: none;
           }
-          .key {
+          .key > a {
             font-family: monospace;
+            max-width: 215px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: inline-block;
           }
           .time {
             float: right;
@@ -77,4 +88,3 @@ export default class KnownLocks extends Component {
     )
   }
 }
-
