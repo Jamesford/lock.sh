@@ -1,174 +1,28 @@
-import React, { Component } from 'react'
 import Link from 'next/link'
 import Layout from '../components/Layout'
-import CryptoJS from 'crypto-js'
-import api from '../utils/api'
-import ClipboardButton from 'react-clipboard.js'
-import Storage from '../utils/storage'
-import ExpirySelect from '../components/fields/Expiry'
-import Password from '../components/fields/Password'
-import FriendlyID from '../components/fields/FriendlyID'
-import { DefaultTime } from '../utils/times'
-import NoSSR from 'react-no-ssr'
-import KnownLocks from '../components/KnownLocks'
 
-export default class Index extends Component {
-  constructor(props) {
-    super(props)
+export default function Index() {
+  return (
+    <Layout>
+      <main className="flex-grow flex flex-col justify-center items-center font-mono">
+        <p className="p-2">What will you share?</p>
 
-    this.state = {
-      text: '',
-      pass: '',
-      expiry: DefaultTime,
-      friendly: true,
-      res: {},
-      loading: false,
-      copy: false
-    }
-  }
+        <div className="flex items-baseline">
+          <Link href="/url">
+            <a className="p-2 hover:underline focus:outline-none focus:ring">
+              URL
+            </a>
+          </Link>
 
-  onClear = () => {
-    this.setState({ res: {} })
-  }
+          <span className="p-2">or</span>
 
-  onInput = evt => {
-    const { name, value } = evt.target
-    this.setState({ [name]: value })
-  }
-
-  onFriendly = evt => {
-    const { name, value } = evt.target
-    const bool = value === 'true'
-    this.setState({ [name]: bool })
-  }
-
-  onSave = async () => {
-    const { text, pass, expiry, friendly } = this.state
-
-    this.setState({ loading: true })
-
-    const cipher = CryptoJS.AES.encrypt(text, pass).toString()
-
-    const res = await api.create(cipher, expiry, friendly)
-    if (res && res.id) Storage.put(res.id, expiry)
-    this.setState({
-      res: res,
-      text: '',
-      pass: '',
-      expiry: DefaultTime,
-      friendly: true,
-      loading: false
-    })
-  }
-
-  getText = () => `https://lock.sh/${this.state.res.id}`
-
-  onCopy = () => {
-    this.setState({ copy: true })
-    setTimeout(() => this.setState({ copy: false }), 500)
-  }
-
-  render() {
-    const { text, pass, expiry, friendly, res, loading, copy } = this.state
-
-    let copyStyle = {
-      width: '60px',
-      position: 'absolute',
-      top: '4px',
-      right: '5px'
-    }
-
-    if (copy) {
-      copyStyle = Object.assign(copyStyle, {
-        borderColor: '#3273dc',
-        color: '#3273dc'
-      })
-    }
-
-    return (
-      <Layout withZxcvbn>
-        <main>
-          {res.ok && (
-            <div className="notification is-link">
-              <button className="delete" onClick={this.onClear} />
-
-              <p>
-                <strong>Secure lock created</strong>
-              </p>
-
-              <div className="control">
-                <input
-                  className="input"
-                  value={`https://lock.sh/${res.id}`}
-                  readOnly
-                />
-
-                <ClipboardButton
-                  className="button is-small"
-                  style={copyStyle}
-                  option-text={this.getText}
-                  onSuccess={this.onCopy}
-                >
-                  <span>{copy ? 'Copied' : 'Copy'}</span>
-                </ClipboardButton>
-              </div>
-            </div>
-          )}
-
-          {res.ok === false && (
-            <div className="notification is-danger">
-              <button className="delete" onClick={this.onClear} />
-              <span>Unable to save your lock</span>
-            </div>
-          )}
-
-          <div className="field">
-            <label className="label">Data to Lock</label>
-
-            <div className="control">
-              <textarea
-                className="textarea"
-                name="text"
-                rows="10"
-                value={text}
-                onChange={this.onInput}
-              />
-            </div>
-          </div>
-
-          <Password name="pass" pass={pass} onChange={this.onInput} />
-
-          <ExpirySelect name="expiry" expiry={expiry} onChange={this.onInput} />
-
-          <FriendlyID
-            name="friendly"
-            value={friendly}
-            onChange={this.onFriendly}
-          />
-
-          <div className="field" style={{ display: 'flex' }}>
-            <button
-              className={`button is-link ${loading ? 'is-loading' : ''}`}
-              style={{ flexGrow: '1' }}
-              onClick={this.onSave}
-              disabled={!text || !pass}
-            >
-              Encrypt & Save
-            </button>
-          </div>
-
-          <NoSSR>
-            <KnownLocks />
-          </NoSSR>
-        </main>
-
-        <style jsx>{`
-          .info {
-            margin-top: 50px;
-            text-align: center;
-          }
-        `}</style>
-      </Layout>
-    )
-  }
+          <Link href="/txt">
+            <a className="p-2 hover:underline focus:outline-none focus:ring">
+              TXT
+            </a>
+          </Link>
+        </div>
+      </main>
+    </Layout>
+  )
 }
