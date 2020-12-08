@@ -62,7 +62,7 @@ export default function URL({ back }) {
           <label className="mb-8 w-full flex items-center">
             <input
               type="submit"
-              className="p-1 w-full rounded text-white bg-black hover:text-black hover:bg-white cursor-pointer focus:outline-none focus:ring"
+              className="p-1 w-full rounded text-white bg-black hover:text-black hover:bg-white cursor-pointer focus:outline-none focus:ring focus:bg-white focus:text-black"
             />
           </label>
         </form>

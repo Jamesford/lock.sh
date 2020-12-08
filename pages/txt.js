@@ -17,7 +17,7 @@ export default function TXT({ back }) {
           <label className="mb-8 w-full flex items-center border-b border-gray-400">
             <textarea
               type="text"
-              className="p-1 w-full text-white bg-black focus:outline-none focus:ring"
+              className="p-1 w-full text-white bg-black focus:outline-none focus:ring resize-none"
               placeholder="TXT"
               rows="6"
               autoFocus
@@ -55,7 +55,7 @@ export default function TXT({ back }) {
           <label className="mb-8 w-full flex items-center">
             <input
               type="submit"
-              className="p-1 w-full rounded text-white bg-black hover:text-black hover:bg-white cursor-pointer focus:outline-none focus:ring"
+              className="p-1 w-full rounded text-white bg-black hover:text-black hover:bg-white cursor-pointer focus:outline-none focus:ring focus:bg-white focus:text-black"
             />
           </label>
         </form>
