@@ -8,10 +8,11 @@ export default function Checkbox({
   ...props
 }) {
   return (
-    <Field error={errors && errors[name]}>
+    <Field name={name} errors={errors}>
       <div className="p-1 flex-grow">{children}</div>
 
       <input
+        id={`field_${name}`}
         className="mr-1 flex-grow-0 focus:outline-none focus:ring"
         type="checkbox"
         ref={register}

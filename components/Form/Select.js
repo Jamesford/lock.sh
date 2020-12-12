@@ -18,8 +18,9 @@ export default function Select({
   ...props
 }) {
   return (
-    <Field error={errors && errors[name]}>
+    <Field name={name} errors={errors}>
       <select
+        id={`field_${name}`}
         className="py-1 w-full text-white bg-black focus:outline-none focus:ring"
         ref={register}
         name={name}

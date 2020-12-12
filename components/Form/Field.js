@@ -1,9 +1,12 @@
-export default function Field({ error, children }) {
+export default function Field({ errors, name, children }) {
+  const error = errors && errors[name]
+
   return (
     <label
       className={`mb-8 w-full flex items-center border-b relative ${
         error ? 'border-red-600' : 'border-gray-400'
       }`}
+      for={`field_${name}`}
     >
       {children}
 

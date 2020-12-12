@@ -8,8 +8,9 @@ export default function TextArea({
   ...props
 }) {
   return (
-    <Field error={errors && errors[name]}>
+    <Field name={name} errors={errors}>
       <textarea
+        id={`field_${name}`}
         className="p-1 w-full text-white bg-black focus:outline-none focus:ring resize-none"
         ref={register}
         name={name}
