@@ -1,10 +1,7 @@
-import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
 import Layout from '../components/Layout'
 import Back from '../components/Back'
 import useRX from '../hooks/useRX'
-import { encrypt, decrypt } from '../lib/crypto'
 import RxTXT from '../components/RxTXT'
 import RxURL from '../components/RxURL'
 

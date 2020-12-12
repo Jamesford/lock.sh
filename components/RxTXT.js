@@ -4,29 +4,27 @@ import Back from './Back'
 import Unlock from './Unlock'
 import TextArea from './Form/TextArea'
 import Copy from './Copy'
+import Lock from './Lock'
 
 export default function RxTXT({ txt }) {
   const [decrypted, setDecrypted] = useState(false)
-  const onUnlock = (dec) => setDecrypted(dec)
+  const unlock = (dec) => setDecrypted(dec)
+  const lock = () => setDecrypted(false)
 
   return (
     <>
-      <Back />
+      {!decrypted ? <Back /> : <Lock onLock={lock}>Lock</Lock>}
 
       <h1 className="text-2xl">RX::ENC::TXT</h1>
 
-      {!decrypted && <Unlock enc={txt} onUnlock={onUnlock} />}
+      {!decrypted && <Unlock enc={txt} onUnlock={unlock} />}
 
       {!!decrypted && (
-        <>
-          <div className="w-64 my-4">
-            <TextArea value={decrypted} readOnly />
+        <div className="w-64 my-4">
+          <TextArea value={decrypted} readOnly />
 
-            <Copy text={decrypted} />
-          </div>
-
-          {/* <button onClick={() => setDecrypted(false)}>Lock</button> */}
-        </>
+          <Copy text={decrypted} />
+        </div>
       )}
     </>
   )
