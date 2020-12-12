@@ -1,0 +1,42 @@
+version: '3.1'
+
+networks:
+  web:
+    internal: false
+  service:
+    internal: true
+
+services:
+  locksh:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: locksh
+    restart: unless-stopped
+    networks:
+      - web
+      - service
+    ports:
+      - 3000:3000
+    environment:
+      REDIS_PORT: 6379
+      REDIS_HOST: db
+  db:
+    image: redis:alpine
+    container_name: db
+    restart: unless-stopped
+    networks:
+      - service
+    ports:
+      - 6379:6379
+  redis-gui:
+    image: rediscommander/redis-commander
+    container_name: redis-gui
+    restart: unless-stopped
+    networks:
+      - web
+      - service
+    ports:
+      - 8081:8081
+    environment:
+      REDIS_HOSTS: locksh-redis:db:6379
