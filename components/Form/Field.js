@@ -6,7 +6,7 @@ export default function Field({ errors, name, children }) {
       className={`mb-8 w-full flex items-center border-b relative ${
         error ? 'border-red-600' : 'border-gray-400'
       }`}
-      for={`field_${name}`}
+      htmlFor={`field_${name}`}
     >
       {children}
 
