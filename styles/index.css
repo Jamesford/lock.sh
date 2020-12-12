@@ -19,7 +19,8 @@ body {
 }
 
 #__next {
-  @apply min-h-screen flex flex-col;
+  min-height: calc(100vh - 120px);
+  @apply flex flex-col;
 }
 
 pre {
