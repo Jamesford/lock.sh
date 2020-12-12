@@ -1,11 +1,10 @@
 import Head from 'next/head'
-const { NEXT_PUBLIC_PAGE_TITLE } = process.env
 
 export default function Layout({ withZxcvbn = false, children }) {
   return (
     <>
       <Head>
-        <title>{NEXT_PUBLIC_PAGE_TITLE}</title>
+        <title>Cryptshare</title>
 
         {withZxcvbn && (
           <script async type="text/javascript" src="/static/zxcvbn.js" />
