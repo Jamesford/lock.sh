@@ -62,7 +62,7 @@ export default function URL({ back }) {
 
         <Select
           name="exp"
-          defaultValue="600"
+          defaultValue="21600"
           register={register({ required: true })}
           errors={errors}
         />
