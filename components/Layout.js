@@ -10,7 +10,10 @@ export default function Layout({ withZxcvbn = false, children }) {
           <script async type="text/javascript" src="/static/zxcvbn.js" />
         )}
       </Head>
-      {children}
+
+      <main className="flex-grow flex flex-col justify-center items-center font-mono">
+        {children}
+      </main>
     </>
   )
 }

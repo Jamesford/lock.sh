@@ -1,72 +1,78 @@
-import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useForm } from 'react-hook-form'
+import { encrypt } from '../lib/crypto'
 import Layout from '../components/Layout'
+import Back from '../components/Back'
+import InputURL from '../components/Form/URL'
+import Password from '../components/Form/Password'
+import Select from '../components/Form/Select'
+import Checkbox from '../components/Form/Checkbox'
+import Submit from '../components/Form/Submit'
 
 export default function URL({ back }) {
+  const router = useRouter()
+  const { register, handleSubmit, watch, errors } = useForm()
+  const onSubmit = ({ url, enc, pass, exp, long }) => {
+    const payload = {
+      enc,
+      exp,
+      long,
+      data: btoa(enc ? encrypt(url, pass) : url),
+      type: 'url',
+    }
+
+    console.log(payload)
+
+    fetch('/api/tx', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((res) => res.json())
+      .then(({ id }) => router.push(`/${id}`))
+  }
+
   return (
     <Layout>
-      <main className="flex-grow flex flex-col justify-center items-center font-mono">
-        <Link href="/">
-          <a className="p-2 text-gray-600 hover:text-white hover:underline focus:outline-none focus:ring">
-            Back
-          </a>
-        </Link>
+      <Back />
 
-        <h1 className="text-2xl">TX::URL</h1>
+      <h1 className="text-2xl">TX::URL</h1>
 
-        <form className="w-64 my-4">
-          <label className="mb-8 w-full flex items-center border-b border-gray-400">
-            <input
-              type="text"
-              className="p-1 w-full text-white bg-black focus:outline-none focus:ring"
-              placeholder="URL"
-              autoFocus
-            />
-          </label>
+      <form className="w-64 my-4" onSubmit={handleSubmit(onSubmit)}>
+        <InputURL
+          name="url"
+          placeholder="URL"
+          autoFocus
+          register={register({ required: true })}
+          errors={errors}
+        />
 
-          <label className="mb-8 w-full flex items-center border-b border-gray-400">
-            <div className="p-1 flex-grow">Encrypt?</div>
-            <input
-              type="checkbox"
-              className="mr-1 flex-grow-0 focus:outline-none focus:ring"
-            />
-          </label>
+        <Checkbox name="enc" register={register} errors={errors}>
+          Encrypt?
+        </Checkbox>
 
-          <label className="mb-8 w-full flex items-center border-b border-gray-400">
-            <input
-              type="password"
-              className="p-1 w-full text-white bg-black focus:outline-none focus:ring"
-              placeholder="Password"
-            />
-          </label>
+        <Password
+          name="pass"
+          placeholder="Password"
+          register={register}
+          errors={errors}
+        />
 
-          <label className="mb-8 w-full flex items-center border-b border-gray-400">
-            <select className="py-1 w-full text-white bg-black focus:outline-none focus:ring">
-              <option value="48h">Expire after 48h</option>
-              <option value="24h">Expire after 24h</option>
-              <option value="12h">Expire after 12h</option>
-              <option value="6h">Expire after 6h</option>
-              <option value="1h">Expire after 1h</option>
-              <option value="30m">Expire after 30m</option>
-              <option value="10m">Expire after 10m</option>
-            </select>
-          </label>
+        <Select
+          name="exp"
+          defaultValue="600"
+          register={register({ required: true })}
+          errors={errors}
+        />
 
-          <label className="mb-8 w-full flex items-center border-b border-gray-400">
-            <div className="p-1 flex-grow">Harder-to-guess ID?</div>
-            <input
-              type="checkbox"
-              className="mr-1 flex-grow-0 focus:outline-none focus:ring"
-            />
-          </label>
+        <Checkbox name="long" register={register} errors={errors}>
+          Harder-toguess ID?
+        </Checkbox>
 
-          <label className="mb-8 w-full flex items-center">
-            <input
-              type="submit"
-              className="p-1 w-full rounded text-white bg-black hover:text-black hover:bg-white cursor-pointer focus:outline-none focus:ring focus:bg-white focus:text-black"
-            />
-          </label>
-        </form>
-      </main>
+        <Submit value="Save" />
+      </form>
     </Layout>
   )
 }
