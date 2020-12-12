@@ -3,6 +3,7 @@ import { decrypt } from '../lib/crypto'
 import Back from './Back'
 import Unlock from './Unlock'
 import TextArea from './Form/TextArea'
+import Copy from './Copy'
 
 export default function RxTXT({ txt }) {
   const [decrypted, setDecrypted] = useState(false)
@@ -20,6 +21,8 @@ export default function RxTXT({ txt }) {
         <>
           <div className="w-64 my-4">
             <TextArea value={decrypted} readOnly />
+
+            <Copy text={decrypted} />
           </div>
 
           {/* <button onClick={() => setDecrypted(false)}>Lock</button> */}
