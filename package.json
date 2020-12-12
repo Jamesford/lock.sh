@@ -7,9 +7,13 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "next build",
     "dev": "next",
-    "start": "next start"
+    "build": "next build",
+    "start": "next start",
+    "dev-up": "docker-compose up -d",
+    "dev-down": "docker-compose down",
+    "prod-up": "docker-compose -f docker-compose.prod.yml up -d",
+    "prod-down": "docker-compose -f docker-compose.prod.yml down"
   },
   "dependencies": {
     "@hapi/boom": "^9.1.0",
