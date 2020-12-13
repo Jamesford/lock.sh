@@ -32,8 +32,6 @@ export default function TXT({ back }) {
       .then(({ id }) => router.push(`/${id}`))
   }
 
-  // console.log(watch('pass'))
-
   return (
     <Layout>
       <Back />
