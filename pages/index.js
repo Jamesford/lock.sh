@@ -23,7 +23,7 @@ export default function Index() {
       </div>
 
       <div className="flex items-baseline mt-2">
-        <Link href="about">
+        <Link href="/about">
           <a className="p-2 text-gray-600 hover:text-white hover:underline focus:outline-none focus:ring">
             About
           </a>
