@@ -10,7 +10,7 @@ export default function Field({ errors, name, children }) {
     >
       {children}
 
-      <div className="absolute -bottom-6 text-red-600">
+      <div className="absolute top-full text-red-600">
         {error && error.message}
       </div>
     </label>
