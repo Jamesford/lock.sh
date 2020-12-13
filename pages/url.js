@@ -59,14 +59,14 @@ export default function URL({ back }) {
           Encrypt?
         </Checkbox>
 
-        {encState && (
+        <div className={encState ? 'block' : 'hidden'}>
           <Password
             name="pass"
             placeholder="Password"
-            register={register}
+            register={register({ required: encState })}
             errors={errors}
           />
-        )}
+        </div>
 
         <Select
           name="exp"
