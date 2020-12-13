@@ -5,7 +5,7 @@ export default function Field({ errors, name, children }) {
     <label
       className={`mb-8 w-full flex items-center border-b relative ${
         error ? 'border-red-600' : 'border-gray-400'
-      }`}
+      } focus-within:ring`}
       htmlFor={`field_${name}`}
     >
       {children}

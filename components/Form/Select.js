@@ -21,7 +21,7 @@ export default function Select({
     <Field name={name} errors={errors}>
       <select
         id={`field_${name}`}
-        className="p-1 w-full text-white bg-black focus:outline-none focus:ring"
+        className="p-1 w-full text-white bg-black focus:outline-none"
         ref={register}
         name={name}
         {...props}

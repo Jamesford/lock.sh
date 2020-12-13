@@ -13,7 +13,7 @@ export default function Checkbox({
 
       <input
         id={`field_${name}`}
-        className="mr-1 flex-grow-0 focus:outline-none focus:ring"
+        className="mr-1 flex-grow-0 focus:outline-none"
         type="checkbox"
         ref={register}
         name={name}
