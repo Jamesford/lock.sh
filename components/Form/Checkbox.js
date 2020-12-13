@@ -17,6 +17,7 @@ export default function Checkbox({
         type="checkbox"
         ref={register}
         name={name}
+        {...props}
       />
     </Field>
   )

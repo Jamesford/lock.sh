@@ -21,8 +21,6 @@ export default function URL({ back }) {
       type: 'url',
     }
 
-    console.log(payload)
-
     fetch('/api/tx', {
       method: 'POST',
       headers: {
@@ -33,6 +31,9 @@ export default function URL({ back }) {
       .then((res) => res.json())
       .then(({ id }) => router.push(`/${id}`))
   }
+
+  const encDefault = true
+  const encState = watch('enc', encDefault)
 
   return (
     <Layout>
@@ -49,16 +50,23 @@ export default function URL({ back }) {
           errors={errors}
         />
 
-        <Checkbox name="enc" register={register} errors={errors}>
+        <Checkbox
+          name="enc"
+          defaultChecked={encDefault}
+          register={register}
+          errors={errors}
+        >
           Encrypt?
         </Checkbox>
 
-        <Password
-          name="pass"
-          placeholder="Password"
-          register={register}
-          errors={errors}
-        />
+        {encState && (
+          <Password
+            name="pass"
+            placeholder="Password"
+            register={register}
+            errors={errors}
+          />
+        )}
 
         <Select
           name="exp"
