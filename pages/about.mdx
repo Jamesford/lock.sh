@@ -1,0 +1,22 @@
+# About
+
+Share encrypted text and URLs. Or don't encrypt URLs, if you wish, they're just links anyways.
+
+Wait... its free?! I'm the customer! You must be stealing my data, right?
+
+You would be, but I run this primarily for myself, friends, and family.
+I'm happy to share it with others for free, at least while it doesn't cost me much.
+
+It's also [open-source](https://github.com/jamesford/lock.sh) so you can audit the code and/or self-host your own instance.
+
+That said, if I haven't already, I might connect a self-hosted [Plausible Analytics](https://plausible.io/) instance to see if anyone is actually using this.
+
+import Layout from '../components/Layout'
+import Back from '../components/Back'
+
+export default ({ children }) => (
+  <Layout>
+    <Back />
+    <div className="mx-5 max-w-prose p-1 prose">{children}</div>
+  </Layout>
+)

@@ -1,4 +1,9 @@
-module.exports = {
+const withPlugins = require('next-compose-plugins')
+const withMDX = require('@next/mdx')({
+  extension: /\.mdx?$/,
+})
+
+const nextConfig = {
   serverRuntimeConfig: {
     redis: {
       port: process.env.REDIS_PORT,
@@ -8,3 +13,12 @@ module.exports = {
     },
   },
 }
+
+const mdx = [
+  withMDX,
+  {
+    pageExtensions: ['js', 'jsx', 'mdx'],
+  },
+]
+
+module.exports = withPlugins([mdx], nextConfig)

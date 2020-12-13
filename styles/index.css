@@ -26,3 +26,19 @@ body {
 pre {
   @apply max-w-full overflow-auto;
 }
+
+.prose {
+  @apply text-white;
+}
+
+.prose h1 {
+  @apply font-extrabold text-4xl leading-tight;
+}
+
+.prose p {
+  @apply my-5;
+}
+
+.prose a {
+  @apply underline text-blue-400 hover:text-blue-300;
+}
