@@ -76,7 +76,7 @@ export default function URL({ back }) {
         />
 
         <Checkbox name="long" register={register} errors={errors}>
-          Harder-toguess ID?
+          Harder-to-guess ID?
         </Checkbox>
 
         <Submit value="Save" />
